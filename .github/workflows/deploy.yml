@@ -35,7 +35,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.5
       with:
         host: 100.42.181.66
-        username: Java # or replace with your user
+        username: root # or replace with your user
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
           docker stop anvar-app || true
