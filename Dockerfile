@@ -11,8 +11,7 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-ENV BOT_TOKEN="7694519326:AAEIOqEYtMiQvxk5n6H7is1Nv6-cOAJZq-8"
-
+ENV BOT_TOKEN="7212744246:AAGKI7Qp8fncrz66PuI2OZQHEmEMncAt7Ww"
 
 # Command to run your Python application
 CMD ["python3", "bot.py"]
