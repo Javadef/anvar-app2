@@ -28,7 +28,7 @@ jobs:
 
     # Build Docker image
     - name: Build Docker image
-      run: docker build -t my-python-app .
+      run: docker build -t anvar-app .
 
     # Deploy to server using SSH with password
     - name: Deploy to Server
