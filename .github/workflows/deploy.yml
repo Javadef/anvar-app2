@@ -38,6 +38,6 @@ jobs:
         username: root # or replace with your user
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          docker stop my-python-app || true
-          docker rm my-python-app || true
-          docker run -d --name my-python-app -p 8010:8000 my-python-app
+          docker stop anvar-app || true
+          docker rm anvar-app || true
+          docker run -d --name anvar -p 8010:8000 anvar
