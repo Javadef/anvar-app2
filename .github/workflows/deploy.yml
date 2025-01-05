@@ -40,4 +40,4 @@ jobs:
         script: |
           docker stop anvar-app || true
           docker rm anvar-app || true
-          docker run -d --name anvar -p 8010:8000 anvar
+          docker run -d --name anvar-app -p 8010:8000 anvar-app
