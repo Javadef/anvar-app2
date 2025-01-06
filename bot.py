@@ -341,14 +341,10 @@ def save_to_excel(data):
         print(f"Chizgilarni qo'shishda xato: {str(e)}")
 
 
+# Handlerlarni qo'shish
 def main():
-    global TOKEN  # Declare TOKEN as a global variable
-    TOKEN = os.getenv("BOT_TOKEN")  # This will read the environment variable
-
-    if not TOKEN:
-        raise ValueError("Bot token is not set in the environment variable")
-    
-    application = Application.builder().token(TOKEN).build()
+    API_TOKEN = '7212744246:AAGKI7Qp8fncrz66PuI2OZQHEmEMncAt7Ww'
+    application = Application.builder().token(API_TOKEN).build()
 
     # Handlerlarni qo'shish
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
