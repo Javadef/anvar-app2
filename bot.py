@@ -342,8 +342,9 @@ def save_to_excel(data):
 
 
 def main():
+    global TOKEN  # Declare TOKEN as a global variable
     TOKEN = os.getenv("BOT_TOKEN")  # This will read the environment variable
-    
+
     if not TOKEN:
         raise ValueError("Bot token is not set in the environment variable")
     
@@ -355,7 +356,6 @@ def main():
     application.add_handler(CommandHandler("sendF", send_file))
 
     application.run_polling()
-
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
