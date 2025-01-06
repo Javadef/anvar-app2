@@ -343,7 +343,7 @@ def save_to_excel(data):
 
 # Handlerlarni qo'shish
 def main():
-    API_TOKEN = os.getenv("BOT_TOKEN")  # This will read the environment variable
+    TOKEN = os.getenv("BOT_TOKEN")  # This will read the environment variable
 
 if not TOKEN:
     raise ValueError("Bot token is not set in the environment variable")
