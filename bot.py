@@ -348,7 +348,7 @@ def main():
 if not TOKEN:
     raise ValueError("Bot token is not set in the environment variable")
     
-    application = Application.builder().token(API_TOKEN).build()
+    application = Application.builder().token(TOKEN).build()
 
     # Handlerlarni qo'shish
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
