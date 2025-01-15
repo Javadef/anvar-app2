@@ -21,34 +21,43 @@ async def clear_excel(update: Update, context: CallbackContext):
     else:
         await update.message.reply_text("Excel fayli mavjud emas.")
 
-
-# Mashinalar ro'yxati
 truck = {
     520: '01 Y 520 VC',
     136: '01 136 QKA', 137: '01 137 QKA', 516: '01 516 PKA', 517: '01 517 PKA',
     429: '01 429 QKA', 430: '01 430 QKA', 431: '01 431 QKA', 67: '01 067 OMA',
     324: '01 324 GMA', 325: '01 325 GMA', 643: '01 643 LKA', 645: '01 645 LKA',
     725: '01 725 LKA', 913: '01 913 OKA', 914: '01 914 OKA', 573: '01 573 LKA',
-    574: '01 574 LKA',
+    574: '01 574 LKA', 904: '01 904 PKA',  372 : '01 372 ZLA',
+    314 : '01 314 JGA', 871 : '01 871 PHA'
 }
 
-# Shofyorlar ro'yxati
 drivers = {
     'Шокир': 'Абдраимов Шокир Абрахимович',
     'Бурхон': 'Каримов Бурхон Кобилжон ўгли',
-    'Бахтиёр': 'Мираипов Бахтиёр Мирраимович',
+    'Бахтиер': 'Мираипов Бахтиёр Мирраимович',
     'Фарход': 'Акрамов Фарход Хошимджанович',
     'Тимур': 'Абдукаримов Тимур Умаралиевич',
-    'Бахромжон': 'Караханов Бахтиёр Бурханжонович',
+    'Бахром': 'Караханов Бахром Бурханжонович',
     'Асатилла': 'Тулаганов Асатилла Рахматиллаевич',
     'Марат': 'Ахмедов Марат Рифкатович',
     'Рустам': 'Джалалов Рустам Мирзатиллаевич',
     'Шокир': 'Лапасов Шокир Абраевич',
     'Мирфозил': 'Таджиев Мирфозил Миртоирович',
     'Дилшод': 'Умирзаков Дилшод Касимжанович',
-    'Файзулла': 'Каимов Файзулла Хамидуллаевич',
+    'Файзулло': 'Каимов Файзулла Хамидуллаевич',
     'Искандар': 'Агзамов Искандар Аскарджанович',
+    'Умид': 'Умирзаков Умид Адилович',
+    'Рихсибой': 'Каримов Рихсибой Марибович',
+    'Даврон': 'Мирякубов Даврон Тохтасинович',
+    'Мухамаджон': 'Хайдаров Махамад Махмуджонович',
+    'Дилмурод': 'Гулямов Дилмурод Тахирович',
+    'Хусан': 'Кодиров Хусан',
+    'Аваз' : 'Бабаев Аваз Рихсибаевич',
+    'Мехриддин' : 'Наджимов Мехриддин',
+    'Mahmudjon' : 'Мансуров Махмуджон',
+    'Ихтиер' : 'Рахманалийев  Ихтиёор',
 }
+
 
 region_prices = {
     'Жиззах': {
@@ -63,6 +72,50 @@ region_prices = {
     
 }
 }
+
+def update_truck(update: Update, context: CallbackContext):
+    try:
+        # Foydalanuvchidan kelgan xabarni ajratish
+        args = context.args
+    
+        if len(args) < 2:
+            update.message.reply_text("Iltimos, to'g'ri formatda ma'lumot kiriting: /update kalit qiymat")
+            return
+
+        # Kalit va qiymatni ajratish
+        key = int(args[0])  # Kalit raqam bo'lishi kerak
+        value = ' '.join(args[1:])  # Qiymatni birlashtirish
+
+        # Dictionaryni yangilash
+        truck[key] = value
+
+        update.message.reply_text(f"Lug'at yangilandi: {key} -> {value}")
+    except ValueError:
+        update.message.reply_text("Kalit raqam bo'lishi kerak! To'g'ri formatda yuboring: /update kalit qiymat")
+    except Exception as e:
+        update.message.reply_text(f"Xatolik yuz berdi: {e}")
+
+
+async def update_driver(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        # Foydalanuvchi xabarini ajratish    
+        args = context.args
+        if len(args) < 2:
+            await update.message.reply_text(
+                "Iltimos, to'g'ri formatda ma'lumot kiriting: /update kalit qiymat"
+            )
+            return
+
+        # Kalit va qiymatni ajratish
+        key = args[0]  # Kalit (haydovchining ismi)
+        value = ' '.join(args[1:])  # Qiymat (to'liq ismi)
+
+        # Haydovchilar ro'yxatini yangilash
+        drivers[key] = value
+
+        await update.message.reply_text(f"Haydovchilar ro'yxati yangilandi: {key} -> {value}")
+    except Exception as e:
+        await update.message.reply_text(f"Xatolik yuz berdi: {e}")
 
 # Excel fayl nomi
 EXCEL_FILE = 'zayavka.xlsx'
@@ -350,6 +403,8 @@ def main():
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(CommandHandler("clear", clear_excel))
     application.add_handler(CommandHandler("sendF", send_file))
+    application.add_handler(CommandHandler("updT", update_truck))
+    application.add_handler(CommandHandler("updD", update_driver))
 
     application.run_polling()
 
